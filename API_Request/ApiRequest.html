@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API REQUEST</title>
+</head>
+<body style="background-color:#212121;">
+
+    <div id="box" style="height: 325px; width: auto;">
+        <img id="image" src="" alt="Image will be displayed here" style="display:none; width:300px; height:auto;">
+    <button id="showImageBtn" style="margin-top: 305px;">Show Image</button>
+    </div>
+    
+</body>
+<script>
+
+const requestURL = 'https://api.github.com/users/hiteshchoudhary'
+
+const xhr = new XMLHttpRequest();
+// console.log("here");
+xhr.open('GET',requestURL )
+xhr.onreadystatechange = function(){
+  console.log(xhr.readyState);
+  if(xhr.readyState === 4){
+    // console.log(this.responseText);
+    let data = this.responseText;
+    console.log( typeof data) // here datatype is string so we can't get the value using using this keyword
+    data = JSON.parse(this.responseText) // here we convert string datatype into object datatype 
+    // console.log( typeof data);
+    console.log(data.followers);
+
+    const avtar = data.avatar_url
+    console.log(avtar);
+    
+    
+  }
+  
+}
+console.log(xhr.readyState);
+xhr.send()
+
+document.getElementById("showImageBtn").addEventListener("click", function() {
+    // Replace with your actual image link
+    const imageUrl = "https://avatars.githubusercontent.com/u/11613311?v=4";
+    
+    // Get the image element
+    const imageElement = document.getElementById("image");
+
+    // Set the image src attribute to the URL
+    imageElement.src = imageUrl;
+
+    // Make the image visible
+    imageElement.style.display = "block";
+});
+
+
+</script>
+</html>
